@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar';
 import Tracklist from './components/Tracklist';
 import Playlist from './components/Playlist';
 import { useState } from 'react';
+import SavePlaylist from './components/SavePlaylist';
 
 //fake data with name, artist, album, and an id
 const tracks = [
@@ -41,6 +42,7 @@ const tracks = [
 
 function App() {
   const [playlist, setPlaylist] = useState([]);
+  const [overlay, setOverlay] = useState(false);
 
   const addTrackToPlaylist = (track_id) => {
     const track = tracks.find(t => t.id === track_id);
@@ -54,13 +56,23 @@ function App() {
     setPlaylist(updatedPlaylist);
   };
 
+  const clearPlaylist = () => {
+    setPlaylist([]);
+  }
+
+  const savePlaylist = () => {
+    setOverlay(true);
+    console.log(overlay);
+  }
+
   return (
-    <div className="App bg-indigo-800 h-screen">
+    <div className="App bg-indigo-800 h-max">
       <div className="flex-col">
         <SearchBar />
         <div className="grid grid-cols-12">
           <Tracklist tracks={tracks} onAdd={addTrackToPlaylist} />
-          <Playlist tracks={playlist} onRemove={removeTrackFromPlaylist} />
+          <Playlist tracks={playlist} onRemove={removeTrackFromPlaylist} onClear={clearPlaylist} onSave={savePlaylist} />
+          <SavePlaylist visible={overlay} />
         </div>
       </div>
     </div>

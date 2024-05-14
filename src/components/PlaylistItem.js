@@ -12,6 +12,7 @@ const handleMouseUp = (e) => {
 };
 
 function PlaylistItem(props) {
+    
     return (
         <div className="track w-full bg-indigo-600 shadow-md p-4 border border-indigo-100 rounded-lg flex justify-between items-center mb-4">
             <div className="w-full mx-4">

@@ -6,7 +6,6 @@ function Button(props) {
     const handleMouseDown = (e) => {
         //add translate-y-1 to the button
         e.currentTarget.classList.add('translate-y-1');
-        console.log(props)
     };
     
     const handleMouseUp = (e) => {
