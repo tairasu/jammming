@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Track(props) {
+function PlaylistItem(props) {
     return (
         <div className="track p-4 border border-gray-300 rounded flex justify-between items-center">
             <div>
@@ -8,13 +8,13 @@ function Track(props) {
                 <p className="text-sm">{props.track.artist}</p>
             </div>
             <button
-                onClick={() => props.onAdd(props.track.id)}
-                className="p-2 bg-blue-500 text-white rounded"
+                onClick={() => props.onRemove(props.track.id)}
+                className="p-2 bg-red-500 text-white rounded"
             >
-                Add
+                Remove
             </button>
         </div>
     );
 }
 
-export default Track;
+export default PlaylistItem;
