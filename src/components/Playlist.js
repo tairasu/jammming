@@ -41,12 +41,12 @@ function Playlist(props) {
                 ))}
             </div>
 
-            <div className="flex justify-center">
+            <div className={"flex justify-center" + (props.tracks.length === 0 ? " hidden" : "")}>
                 <button
                     onClick={props.onSave}
                     onMouseDown={handleMouseDown}
                     onMouseUp={handleMouseUp}
-                    className="bg-indigo-400 w-fit absolute duration-75 z-20 justify-end text-indigo-50 p-2 rounded-lg"
+                    className={"bg-indigo-400 w-fit absolute duration-75 z-20 justify-end text-indigo-50 p-2 rounded-lg"}
                 >
                     Save Playlist
                 </button>

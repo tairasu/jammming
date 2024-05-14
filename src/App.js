@@ -5,6 +5,7 @@ import Tracklist from './components/Tracklist';
 import Playlist from './components/Playlist';
 import { useState } from 'react';
 import SavePlaylist from './components/SavePlaylist';
+import SpotifyConnect from './SpotifyConnect';
 
 //fake data with name, artist, album, and an id
 const tracks = [
