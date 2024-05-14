@@ -62,7 +62,10 @@ function App() {
 
   const savePlaylist = () => {
     setOverlay(true);
-    console.log(overlay);
+  }
+
+  const cancelOverlay = () => {
+    setOverlay(false);
   }
 
   return (
@@ -72,7 +75,7 @@ function App() {
         <div className="grid grid-cols-12">
           <Tracklist tracks={tracks} onAdd={addTrackToPlaylist} />
           <Playlist tracks={playlist} onRemove={removeTrackFromPlaylist} onClear={clearPlaylist} onSave={savePlaylist} />
-          <SavePlaylist visible={overlay} />
+          <SavePlaylist visible={overlay} onCancel={cancelOverlay} />
         </div>
       </div>
     </div>

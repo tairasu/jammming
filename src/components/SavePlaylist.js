@@ -2,8 +2,8 @@ import React from 'react';
 
 function SavePlaylist(props) {
     return (
-        <div className={`save-playlist fixed inset-0 bg-indigo-800 bg-opacity-90 z-30 flex justify-center items-center ${props.visible ? '' : "hidden"}`}>
-            <div className="bg-indigo-900 p-4 rounded-xl shadow-xl">
+        <div onClick={props.onCancel} className={`save-playlist fixed inset-0 bg-indigo-800 bg-opacity-90 backdrop-blur duration-300 z-30 flex justify-center items-center ${props.visible ? '' : "hidden"}`}>
+            <div onClick={(e) => e.stopPropagation()} className="bg-indigo-900 p-4 rounded-xl shadow-xl">
                 <h2 className="text-lg text-indigo-50 font-bold mb-4">Save Playlist</h2>
                 <input
                     type="text"
@@ -14,16 +14,16 @@ function SavePlaylist(props) {
                 />
                 <div className="flex justify-between">
                     <button
-                        onClick={props.onSave}
-                        className="bg-indigo-400 text-indigo-50 p-2 rounded-lg"
-                    >
-                        Save
-                    </button>
-                    <button
                         onClick={props.onCancel}
                         className="bg-indigo-400 text-indigo-50 p-2 rounded-lg"
                     >
                         Cancel
+                    </button>
+                    <button
+                        onClick={props.onSave}
+                        className="bg-indigo-400 text-indigo-50 p-2 rounded-lg"
+                    >
+                        Save
                     </button>
                 </div>
             </div>
