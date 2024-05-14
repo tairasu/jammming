@@ -4,7 +4,7 @@ import Track from './Track';
 function Tracklist(props) {
     return (
         <div className="tracklist p-4 col-span-6">
-            <h2 className="text-lg font-bold">Tracklist</h2>
+            <h2 className="text-lg text-indigo-50 p-4 font-bold">Tracklist</h2>
             <div className="flex-col">
                 {props.tracks.map((track) => (
                     <Track

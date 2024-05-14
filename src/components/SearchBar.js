@@ -8,7 +8,7 @@ function SearchBar(props) {
             placeholder="Search for a song or artist..."
             value={props.searchTerm}
             onChange={props.handleSearchTermChange}
-            className="w-full p-2 border border-gray-300 rounded text-center"
+            className="w-full p-2 bg-indigo-100 rounded-xl focus:outline-none focus:ring-4 duration-200 focus:bg-white focus:ring-indigo-300 text-center"
         />
         </div>
     );

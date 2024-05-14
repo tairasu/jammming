@@ -52,10 +52,10 @@ function App() {
   const removeTrackFromPlaylist = (track_id) => {
     const updatedPlaylist = playlist.filter(t => t.id !== track_id);
     setPlaylist(updatedPlaylist);
-  }
+  };
 
   return (
-    <div className="App bg-violet-100 h-screen">
+    <div className="App bg-indigo-800 h-screen">
       <div className="flex-col">
         <SearchBar />
         <div className="grid grid-cols-12">
