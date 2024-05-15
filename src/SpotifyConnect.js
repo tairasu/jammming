@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const client_id = '232228ac8d0a404fb5a7cd760a7d6fb0';
-const redirect_uri = 'localhost:3000/callback';
+const redirect_uri = 'https://tairasu-jammming.netlify.app/callback';
 
 const SpotifyConnect = ({ setData, searchTerm }) => {
   const navigate = useNavigate();
