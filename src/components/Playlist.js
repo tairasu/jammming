@@ -3,16 +3,6 @@ import PlaylistItem from './PlaylistItem';
 
 function Playlist(props) {
 
-    const handleMouseDown = (e) => {
-        //add translate-y-1 to the button
-        e.currentTarget.classList.add('translate-y-1');
-    }
-
-    const handleMouseUp = (e) => {
-        //remove translate-y-1 from the button
-        e.currentTarget.classList.remove('translate-y-1');
-    }
-
     return (
         <div className="playlist p-4 lg:col-span-6 col-span-12 bg-indigo-900 rounded-xl shadow-inner-xl m-2">
             <div className="flex mb-4">
@@ -20,9 +10,7 @@ function Playlist(props) {
                 <div className="absolute right-2">
                     <button
                         onClick={props.onClear}
-                        onMouseDown={handleMouseDown}
-                        onMouseUp={handleMouseUp}
-                        className="bg-indigo-400 duration-75 absolute right-4 z-20 justify-end text-indigo-50 p-2 rounded-lg"
+                        className="bg-indigo-400 active:translate-y-1 duration-75 absolute right-4 z-20 justify-end text-indigo-50 p-2 rounded-lg"
                     >
                         Clear Playlist
                     </button>
@@ -43,9 +31,7 @@ function Playlist(props) {
             <div className={"flex justify-center" + (props.tracks.length === 0 ? " hidden" : "")}>
                 <button
                     onClick={props.onSave}
-                    onMouseDown={handleMouseDown}
-                    onMouseUp={handleMouseUp}
-                    className={"bg-indigo-400 w-fit absolute duration-75 z-20 justify-end text-indigo-50 p-2 rounded-lg"}
+                    className={"bg-indigo-400 active:translate-y-1 w-fit absolute duration-75 z-20 justify-end text-indigo-50 p-2 rounded-lg"}
                 >
                     Save Playlist
                 </button>

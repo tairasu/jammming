@@ -1,15 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 
-const handleMouseDown = (e) => {
-    //add translate-y-1 to the button
-    e.currentTarget.classList.add('translate-y-1');
-};
-
-const handleMouseUp = (e) => {
-    //remove translate-y-1 from the button
-    e.currentTarget.classList.remove('translate-y-1');
-};
 
 function PlaylistItem(props) {
     
@@ -27,9 +18,7 @@ function PlaylistItem(props) {
                
                 <button
                     onClick={() => props.onRemove(props.track.id)}
-                    className="absolute duration-75 top-0 z-20 left-0 p-2 bg-indigo-400 text-indigo-50 rounded-full"
-                    onMouseDown={handleMouseDown}
-                    onMouseUp={handleMouseUp}
+                    className="absolute duration-75 top-0 z-20 active:translate-y-1 left-0 p-2 bg-indigo-400 text-indigo-50 rounded-full"
                 >
                                       <svg
                         xmlns="http://www.w3.org/2000/svg"
