@@ -39,16 +39,21 @@ const SpotifyConnect = ({ setData, searchTerm }) => {
     };
 
     const fetchTokenAndData = async () => {
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get('code');
-      if (code) {
-        const token = await getToken(code);
-        await fetchSpotifyData(token);
-      }
-    };
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const code = params.get('code');
+          if (code) {
+            const token = await getToken(code);
+            await fetchSpotifyData(token);
+            navigate('/');  // Redirect to the main page
+          }
+        } catch (error) {
+          console.error("Error fetching token and data:", error);
+        }
+      };
 
     fetchTokenAndData();
-  }, [searchTerm, setData]);
+  }, [searchTerm, setData, navigate]);
 
   const handleLogin = () => {
     const scopes = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
