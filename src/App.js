@@ -5,7 +5,7 @@ import SearchBar from './components/SearchBar';
 import Tracklist from './components/Tracklist';
 import Playlist from './components/Playlist';
 import SavePlaylist from './components/SavePlaylist';
-import SpotifyConnect from './SpotifyConnect';
+import Spotify from './Spotify';
 
 function App() {
   const [playlist, setPlaylist] = useState([]);
@@ -45,10 +45,15 @@ function App() {
       setError("Playlist name cannot be empty.");
       return;
     }
-    console.log("Saving playlist:", { name: playlistName, tracks: playlist });
-    setOverlay(false);
-    setPlaylistName("");
-    clearPlaylist();
+    const trackUris = playlist.map(track => track.uri);
+    Spotify.savePlayList(playlistName, trackUris).then(() => {
+      setOverlay(false);
+      setPlaylistName("");
+      clearPlaylist();
+    }).catch(err => {
+      setError("Error saving playlist.");
+      console.error(err);
+    });
   };
 
   const handleSearchTermChange = (event) => {
@@ -67,13 +72,14 @@ function App() {
     return () => clearTimeout(handler);
   }, [searchTerm]);
 
-  const handleSearch = () => {
-    if (searchTerm.trim() === "") {
-      setError("Search term cannot be empty.");
-      return;
+  useEffect(() => {
+    if (debouncedSearchTerm.trim() !== "") {
+      Spotify.search(debouncedSearchTerm).then(setTracks).catch(err => {
+        setError("Error searching for tracks.");
+        console.error(err);
+      });
     }
-    setError(null);
-  };
+  }, [debouncedSearchTerm]);
 
   return (
     <Router>
@@ -82,9 +88,8 @@ function App() {
           <Routes>
             <Route path="/" element={
               <>
-                <SearchBar searchTerm={searchTerm} handleSearchTermChange={handleSearchTermChange} onSearch={handleSearch} />
+                <SearchBar searchTerm={searchTerm} handleSearchTermChange={handleSearchTermChange} />
                 {error && <div className="error-message text-red-500 text-center">{error}</div>}
-                <SpotifyConnect setData={setTracks} searchTerm={debouncedSearchTerm} />
                 <div className="grid grid-cols-12">
                   <Tracklist tracks={tracks} onAdd={addTrackToPlaylist} />
                   <Playlist 
@@ -103,7 +108,6 @@ function App() {
                 </div>
               </>
             } />
-            <Route path="/callback" element={<SpotifyConnect setData={setTracks} searchTerm={debouncedSearchTerm} />} />
           </Routes>
         </div>
       </div>
