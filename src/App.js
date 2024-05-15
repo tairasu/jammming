@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import SearchBar from './components/SearchBar';
 import Tracklist from './components/Tracklist';
@@ -14,6 +14,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+  const [playlistName, setPlaylistName] = useState("");
 
   const addTrackToPlaylist = (track_id) => {
     const track = tracks.find(t => t.id === track_id);
@@ -31,7 +32,7 @@ function App() {
     setPlaylist([]);
   };
 
-  const savePlaylist = () => {
+  const showOverlay = () => {
     setOverlay(true);
   };
 
@@ -39,19 +40,31 @@ function App() {
     setOverlay(false);
   };
 
+  const savePlaylist = () => {
+    if (playlistName.trim() === "") {
+      setError("Playlist name cannot be empty.");
+      return;
+    }
+    console.log("Saving playlist:", { name: playlistName, tracks: playlist });
+    setOverlay(false);
+    setPlaylistName("");
+    clearPlaylist();
+  };
+
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
-    setError(null); // Clear error when user starts typing
+    setError(null);
+  };
+
+  const handlePlaylistNameChange = (event) => {
+    setPlaylistName(event.target.value);
   };
 
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
     }, 500);
-
-    return () => {
-      clearTimeout(handler);
-    };
+    return () => clearTimeout(handler);
   }, [searchTerm]);
 
   const handleSearch = () => {
@@ -60,22 +73,41 @@ function App() {
       return;
     }
     setError(null);
-    // Trigger data fetch in SpotifyConnect by updating searchTerm
   };
 
   return (
-    <div className="App bg-indigo-800 h-max">
-      <div className="flex-col">
-        <SearchBar searchTerm={searchTerm} handleSearchTermChange={handleSearchTermChange} onSearch={handleSearch} />
-        {error && <div className="error-message text-red-500 text-center">{error}</div>}
-        <SpotifyConnect setData={setTracks} searchTerm={debouncedSearchTerm} />
-        <div className="grid grid-cols-12">
-          <Tracklist tracks={tracks} onAdd={addTrackToPlaylist} />
-          <Playlist tracks={playlist} onRemove={removeTrackFromPlaylist} onClear={clearPlaylist} onSave={savePlaylist} />
-          <SavePlaylist visible={overlay} onCancel={cancelOverlay} />
+    <Router>
+      <div className="App bg-indigo-800 h-max">
+        <div className="flex-col">
+          <Routes>
+            <Route path="/" element={
+              <>
+                <SearchBar searchTerm={searchTerm} handleSearchTermChange={handleSearchTermChange} onSearch={handleSearch} />
+                {error && <div className="error-message text-red-500 text-center">{error}</div>}
+                <SpotifyConnect setData={setTracks} searchTerm={debouncedSearchTerm} />
+                <div className="grid grid-cols-12">
+                  <Tracklist tracks={tracks} onAdd={addTrackToPlaylist} />
+                  <Playlist 
+                    tracks={playlist} 
+                    onRemove={removeTrackFromPlaylist} 
+                    onClear={clearPlaylist} 
+                    onSave={showOverlay} 
+                  />
+                  <SavePlaylist 
+                    visible={overlay} 
+                    onCancel={cancelOverlay} 
+                    onSave={savePlaylist} 
+                    playlistName={playlistName} 
+                    handlePlaylistNameChange={handlePlaylistNameChange} 
+                  />
+                </div>
+              </>
+            } />
+            <Route path="/callback" element={<SpotifyConnect setData={setTracks} searchTerm={debouncedSearchTerm} />} />
+          </Routes>
         </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

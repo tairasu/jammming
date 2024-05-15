@@ -28,7 +28,6 @@ function Playlist(props) {
                     </button>
                     <div className="bg-black z-10 absolute right-4 translate-y-1 p-2 rounded-lg">Clear Playlist</div>
                 </div>
-
             </div>
 
             <div className="flex-col">
