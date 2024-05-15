@@ -1,17 +1,12 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-const client_id = '232228ac8d0a404fb5a7cd760a7d6fb0';
-const redirect_uri = 'https://tairasu-jammming.netlify.app/callback';
+const backend_url = '/.netlify/functions/get-token';
 
 const SpotifyConnect = ({ setData, searchTerm }) => {
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!searchTerm) return;
 
     const getToken = async (code) => {
-      const response = await fetch('http://localhost:5000/get-token', {
+      const response = await fetch(backend_url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
