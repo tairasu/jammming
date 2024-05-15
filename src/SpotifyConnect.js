@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const client_id = '';
+const client_id = '232228ac8d0a404fb5a7cd760a7d6fb0';
 const redirect_uri = 'https://tairasu-jammming.netlify.app/callback';
 
 const SpotifyConnect = ({ setData, searchTerm }) => {
@@ -11,7 +11,7 @@ const SpotifyConnect = ({ setData, searchTerm }) => {
     if (!searchTerm) return;
 
     const getToken = async (code) => {
-      const response = await fetch(`${tairasu-jammming.netlify.app}/get-token`, {
+      const response = await fetch('/.netlify/functions/get-token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ const SpotifyConnect = ({ setData, searchTerm }) => {
   }, [searchTerm, setData]);
 
   const handleLogin = () => {
-    const scopes = 'user-read-private user-read-email';
+    const scopes = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
     window.location = `https://accounts.spotify.com/authorize?response_type=code&client_id=${client_id}&scope=${scopes}&redirect_uri=${encodeURIComponent(redirect_uri)}`;
   };
 
