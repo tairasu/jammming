@@ -14,7 +14,7 @@ function Playlist(props) {
     }
 
     return (
-        <div className="playlist p-4 col-span-6 bg-indigo-900 rounded-xl shadow-inner-xl m-2">
+        <div className="playlist p-4 lg:col-span-6 col-span-12 bg-indigo-900 rounded-xl shadow-inner-xl m-2">
             <div className="flex mb-4">
                 <h2 className="mx-auto text-lg font-bold text-indigo-50 p-4">Playlist</h2>
                 <div className="absolute right-2">

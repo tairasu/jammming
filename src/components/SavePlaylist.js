@@ -2,7 +2,7 @@ import React from 'react';
 
 function SavePlaylist(props) {
     return (
-        <div onClick={props.onCancel} className={`save-playlist fixed inset-0 bg-indigo-800 bg-opacity-90 backdrop-blur duration-300 z-30 flex justify-center items-center ${props.visible ? '' : "hidden"}`}>
+        <div onClick={props.onCancel} className={`save-playlist fixed inset-0 bg-indigo-800 bg-opacity-0 backdrop-blur shadow-xl duration-300 z-30 flex justify-center items-center ${props.visible ? '' : "hidden"}`}>
             <div onClick={(e) => e.stopPropagation()} className="bg-indigo-900 p-4 rounded-xl shadow-xl">
                 <h2 className="text-lg text-indigo-50 font-bold mb-4">Save Playlist</h2>
                 <input
